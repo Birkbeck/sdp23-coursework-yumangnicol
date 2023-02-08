@@ -96,6 +96,11 @@ public final class Translator {
                 int x = Integer.parseInt(scan());
                 return new MoveInstruction(label, Register.valueOf(r), x);
             }
+            case JumpInstruction.OP_CODE -> {
+                String s = scan();
+                String L = scan();
+                return new JumpInstruction(label, Register.valueOf(s), L);
+            }
 
             // TODO: add code for all other types of instructions
 
