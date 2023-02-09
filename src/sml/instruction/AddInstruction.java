@@ -42,7 +42,7 @@ public class AddInstruction extends Instruction {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 		AddInstruction that = (AddInstruction) o;
-		return result.equals(that.result) && source.equals(that.source);
+		return Objects.equals(label, that.label) && result.equals(that.result) && source.equals(that.source);
 	}
 
 	@Override
