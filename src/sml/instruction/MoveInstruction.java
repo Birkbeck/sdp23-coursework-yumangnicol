@@ -33,7 +33,7 @@ public class MoveInstruction extends Instruction {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         MoveInstruction that = (MoveInstruction) o;
-        return value == that.value && result.equals(that.result);
+        return Objects.equals(label, that.label) && value == that.value && result.equals(that.result);
     }
 
     @Override
