@@ -45,4 +45,18 @@ class SubtractInstructionTest {
         Assertions.assertEquals(-11, machine.getRegisters().get(EAX));
     }
 
+    @Test
+    void equalsValid() {
+        Instruction i1 = new SubtractInstruction("F1", EAX, EBX);
+        Instruction i2 = new SubtractInstruction("F1", EAX, EBX);
+        Assertions.assertEquals(i1, i2);
+    }
+
+    @Test
+    void equalsInvalid() {
+        Instruction i1 = new SubtractInstruction(null, EAX, EBX);
+        Instruction i2 = new SubtractInstruction("F1", EAX, EBX);
+        Assertions.assertNotEquals(i1, i2);
+    }
+
 }
