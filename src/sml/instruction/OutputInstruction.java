@@ -33,7 +33,7 @@ public class OutputInstruction extends Instruction {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         OutputInstruction that = (OutputInstruction) o;
-        return source.equals(that.source);
+        return Objects.equals(label, that.label) && source.equals(that.source);
     }
 
     @Override
