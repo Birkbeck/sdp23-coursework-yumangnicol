@@ -44,4 +44,18 @@ public class DivideInstructionTest {
         instruction.execute(machine);
         Assertions.assertEquals(-1, machine.getRegisters().get(EAX));
     }
+
+    @Test
+    void equalsValid() {
+        Instruction i1 = new DivideInstruction("F1", EAX, EBX);
+        Instruction i2 = new DivideInstruction("F1", EAX, EBX);
+        Assertions.assertEquals(i1, i2);
+    }
+
+    @Test
+    void equalsInvalid() {
+        Instruction i1 = new DivideInstruction(null, EAX, EBX);
+        Instruction i2 = new DivideInstruction("F1", EAX, EBX);
+        Assertions.assertNotEquals(i1, i2);
+    }
 }
