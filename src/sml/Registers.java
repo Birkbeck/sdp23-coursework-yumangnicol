@@ -45,13 +45,12 @@ public final class Registers {
         return registers.get((Register)register);
     }
 
-    // TODO: use pattern matching for instanceof
+    // TODO: use pattern matching for instanceof ✅
     // https://docs.oracle.com/en/java/javase/14/language/pattern-matching-instanceof-operator.html
     @Override
     public boolean equals(Object o) {
-        if (o instanceof Registers) {
-            Registers other = (Registers) o;
-            return registers.equals(other.registers);
+        if (o instanceof Registers r) {
+            return registers.equals(r.registers);
         }
         return false;
     }
