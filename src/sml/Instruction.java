@@ -48,12 +48,15 @@ public abstract class Instruction {
 		return (getLabel() == null) ? "" : getLabel() + ": ";
 	}
 
-	// TODO: What does abstract in the declaration below mean?
+	// TODO: What does abstract in the declaration below mean? ✅
 	//       (Write a short explanation.)
+	// Abstract methods do not have a body or implementation. Only the method signature is provided
+	// Any class that contains an abstract method should also be an abstract class
+	// Any class that extends an abstract class requires an implementation the abstract methods of the extended class
 	@Override
 	public abstract String toString();
 
-	// TODO: Make sure that subclasses also implement equals and hashCode (needed in class Machine).
+	// TODO: Make sure that subclasses also implement equals and hashCode (needed in class Machine). ✅
 
 	@Override
 	public abstract int hashCode();
