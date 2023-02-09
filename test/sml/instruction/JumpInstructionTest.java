@@ -29,7 +29,6 @@ public class JumpInstructionTest {
 
     @Test
     void executeValid() {
-
         Instruction i1 = new MoveInstruction(null, EAX, 1);
         Instruction i2 = new JumpInstruction(null, EAX, "f3");
         Instruction i3 = new MoveInstruction(null, EBX, 50); //skipped
@@ -44,6 +43,20 @@ public class JumpInstructionTest {
         machine.execute();
 
         Assertions.assertEquals(1, registers.get(EBX));
+    }
+
+    @Test
+    void equalsValid() {
+        Instruction i1 = new JumpInstruction("F1", EAX, "F2");
+        Instruction i2 = new JumpInstruction("F1", EAX, "F2");
+        Assertions.assertEquals(i1, i2);
+    }
+
+    @Test
+    void equalsInvalid() {
+        Instruction i1 = new JumpInstruction("F1", EAX, "F2");
+        Instruction i2 = new JumpInstruction(null, EAX, "F2");
+        Assertions.assertNotEquals(i1, i2);
     }
 
 }
