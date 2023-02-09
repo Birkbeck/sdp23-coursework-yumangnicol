@@ -35,7 +35,7 @@ public class JumpInstruction extends Instruction {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         JumpInstruction that = (JumpInstruction) o;
-        return source.equals(that.source) && branch.equals(that.branch);
+        return Objects.equals(label, that.label) && source.equals(that.source) && branch.equals(that.branch);
     }
 
     @Override
