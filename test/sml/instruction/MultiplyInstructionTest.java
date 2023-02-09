@@ -45,4 +45,17 @@ public class MultiplyInstructionTest {
         Assertions.assertEquals(-72, machine.getRegisters().get(EAX));
     }
 
+    @Test
+    void equalsValid() {
+        Instruction i1 = new MultiplyInstruction("F1", EAX, EBX);
+        Instruction i2 = new MultiplyInstruction("F1", EAX, EBX);
+        Assertions.assertEquals(i1, i2);
+    }
+
+    @Test
+    void equalsInvalid() {
+        Instruction i1 = new MultiplyInstruction(null, EAX, EBX);
+        Instruction i2 = new MultiplyInstruction("F1", EAX, EBX);
+        Assertions.assertNotEquals(i1, i2);
+    }
 }
