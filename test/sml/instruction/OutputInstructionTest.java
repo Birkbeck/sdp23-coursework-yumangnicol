@@ -49,4 +49,18 @@ public class OutputInstructionTest {
         instruction.execute(machine);
         Assertions.assertEquals("-5", outputStreamCaptor.toString().trim());
     }
+
+    @Test
+    void equalsValid() {
+        Instruction i1 = new OutputInstruction("F1", EAX);
+        Instruction i2 = new OutputInstruction("F1", EAX);
+        Assertions.assertEquals(i1, i2);
+    }
+
+    @Test
+    void equalsInvalid() {
+        Instruction i1 = new OutputInstruction(null, EAX);
+        Instruction i2 = new OutputInstruction("F1", EAX);
+        Assertions.assertNotEquals(i1, i2);
+    }
 }
