@@ -6,12 +6,12 @@ import sml.RegisterName;
 
 import java.util.Objects;
 
-public class JumpInstruction extends Instruction {
+public class JnzInstruction extends Instruction {
     private final RegisterName source;
     private final String branch;
     public static final String OP_CODE = "jnz";
 
-    public JumpInstruction(String label, RegisterName source, String branch) {
+    public JnzInstruction(String label, RegisterName source, String branch) {
         super(label, OP_CODE);
         this.source = source;
         this.branch = branch;
@@ -34,7 +34,7 @@ public class JumpInstruction extends Instruction {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        JumpInstruction that = (JumpInstruction) o;
+        JnzInstruction that = (JnzInstruction) o;
         return Objects.equals(label, that.label) && source.equals(that.source) && branch.equals(that.branch);
     }
 

@@ -8,16 +8,22 @@ import sml.Instruction;
 import sml.Machine;
 import sml.Registers;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
 import static sml.Registers.Register.*;
 
-class SubtractInstructionTest {
+public class OutInstructionTest {
     private Machine machine;
     private Registers registers;
+    private final PrintStream standardOut = System.out;
+    private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
 
     @BeforeEach
     void setUp() {
         machine = new Machine(new Registers());
         registers = machine.getRegisters();
+        System.setOut(new PrintStream(outputStreamCaptor));
         //...
     }
 
@@ -25,38 +31,36 @@ class SubtractInstructionTest {
     void tearDown() {
         machine = null;
         registers = null;
+        System.setOut(standardOut);
     }
 
     @Test
     void executeValid() {
         registers.set(EAX, 5);
-        registers.set(EBX, 6);
-        Instruction instruction = new SubtractInstruction(null, EAX, EBX);
+        Instruction instruction = new OutInstruction(null, EAX);
         instruction.execute(machine);
-        Assertions.assertEquals(-1, machine.getRegisters().get(EAX));
+        Assertions.assertEquals("5", outputStreamCaptor.toString().trim());
     }
 
     @Test
     void executeValidTwo() {
-        registers.set(EAX, -5);
-        registers.set(EBX, 6);
-        Instruction instruction = new SubtractInstruction(null, EAX, EBX);
+        registers.set(ESP, -5);
+        Instruction instruction = new OutInstruction(null, ESP);
         instruction.execute(machine);
-        Assertions.assertEquals(-11, machine.getRegisters().get(EAX));
+        Assertions.assertEquals("-5", outputStreamCaptor.toString().trim());
     }
 
     @Test
     void equalsValid() {
-        Instruction i1 = new SubtractInstruction("F1", EAX, EBX);
-        Instruction i2 = new SubtractInstruction("F1", EAX, EBX);
+        Instruction i1 = new OutInstruction("F1", EAX);
+        Instruction i2 = new OutInstruction("F1", EAX);
         Assertions.assertEquals(i1, i2);
     }
 
     @Test
     void equalsInvalid() {
-        Instruction i1 = new SubtractInstruction(null, EAX, EBX);
-        Instruction i2 = new SubtractInstruction("F1", EAX, EBX);
+        Instruction i1 = new OutInstruction(null, EAX);
+        Instruction i2 = new OutInstruction("F1", EAX);
         Assertions.assertNotEquals(i1, i2);
     }
-
 }

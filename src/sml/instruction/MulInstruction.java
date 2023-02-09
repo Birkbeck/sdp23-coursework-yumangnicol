@@ -6,13 +6,13 @@ import sml.RegisterName;
 
 import java.util.Objects;
 
-public class MultiplyInstruction extends Instruction {
+public class MulInstruction extends Instruction {
     private final RegisterName result;
     private final RegisterName source;
 
     public static final String OP_CODE = "mul";
 
-    public MultiplyInstruction(String label, RegisterName result, RegisterName source) {
+    public MulInstruction(String label, RegisterName result, RegisterName source) {
         super(label, OP_CODE);
         this.result = result;
         this.source = source;
@@ -35,7 +35,7 @@ public class MultiplyInstruction extends Instruction {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        MultiplyInstruction that = (MultiplyInstruction) o;
+        MulInstruction that = (MulInstruction) o;
         return Objects.equals(label, that.label) && result.equals(that.result) && source.equals(that.source);
     }
 

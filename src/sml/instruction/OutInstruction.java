@@ -6,13 +6,13 @@ import sml.RegisterName;
 
 import java.util.Objects;
 
-public class OutputInstruction extends Instruction {
+public class OutInstruction extends Instruction {
 
     private final RegisterName source;
 
     public static final String OP_CODE = "out";
 
-    public OutputInstruction(String label, RegisterName source){
+    public OutInstruction(String label, RegisterName source){
         super(label, OP_CODE);
         this.source = source;
     }
@@ -32,7 +32,7 @@ public class OutputInstruction extends Instruction {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        OutputInstruction that = (OutputInstruction) o;
+        OutInstruction that = (OutInstruction) o;
         return Objects.equals(label, that.label) && source.equals(that.source);
     }
 

@@ -10,7 +10,7 @@ import sml.Registers;
 
 import static sml.Registers.Register.*;
 
-public class MultiplyInstructionTest {
+public class DivInstructionTest {
     private Machine machine;
     private Registers registers;
 
@@ -29,33 +29,33 @@ public class MultiplyInstructionTest {
 
     @Test
     void executeValid() {
-        registers.set(EAX, 5);
-        registers.set(EBX, 6);
-        Instruction instruction = new MultiplyInstruction(null, EAX, EBX);
+        registers.set(EAX, 11);
+        registers.set(EBX, 2);
+        Instruction instruction = new DivInstruction(null, EAX, EBX);
         instruction.execute(machine);
-        Assertions.assertEquals(30, machine.getRegisters().get(EAX));
+        Assertions.assertEquals(5, machine.getRegisters().get(EAX));
     }
 
     @Test
     void executeValidTwo() {
-        registers.set(EAX, -8);
-        registers.set(EBX, 9);
-        Instruction instruction = new MultiplyInstruction(null, EAX, EBX);
+        registers.set(EAX, 10);
+        registers.set(EBX, -6);
+        Instruction instruction = new DivInstruction(null, EAX, EBX);
         instruction.execute(machine);
-        Assertions.assertEquals(-72, machine.getRegisters().get(EAX));
+        Assertions.assertEquals(-1, machine.getRegisters().get(EAX));
     }
 
     @Test
     void equalsValid() {
-        Instruction i1 = new MultiplyInstruction("F1", EAX, EBX);
-        Instruction i2 = new MultiplyInstruction("F1", EAX, EBX);
+        Instruction i1 = new DivInstruction("F1", EAX, EBX);
+        Instruction i2 = new DivInstruction("F1", EAX, EBX);
         Assertions.assertEquals(i1, i2);
     }
 
     @Test
     void equalsInvalid() {
-        Instruction i1 = new MultiplyInstruction(null, EAX, EBX);
-        Instruction i2 = new MultiplyInstruction("F1", EAX, EBX);
+        Instruction i1 = new DivInstruction(null, EAX, EBX);
+        Instruction i2 = new DivInstruction("F1", EAX, EBX);
         Assertions.assertNotEquals(i1, i2);
     }
 }

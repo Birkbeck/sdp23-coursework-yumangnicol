@@ -6,12 +6,12 @@ import sml.RegisterName;
 
 import java.util.Objects;
 
-public class MoveInstruction extends Instruction {
+public class MovInstruction extends Instruction {
     private final RegisterName result;
     private final int value;
     public static final String OP_CODE = "mov";
 
-    public MoveInstruction(String label, RegisterName source, int value){
+    public MovInstruction(String label, RegisterName source, int value){
         super(label, OP_CODE);
         this.result = source;
         this.value = value;
@@ -32,7 +32,7 @@ public class MoveInstruction extends Instruction {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        MoveInstruction that = (MoveInstruction) o;
+        MovInstruction that = (MovInstruction) o;
         return Objects.equals(label, that.label) && value == that.value && result.equals(that.result);
     }
 
