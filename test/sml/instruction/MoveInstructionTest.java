@@ -30,18 +30,30 @@ public class MoveInstructionTest {
     @Test
     void executeValid() {
         registers.set(EAX, 11);
-        registers.set(EBX, 2);
         Instruction instruction = new MoveInstruction(null, EAX, 3);
         instruction.execute(machine);
-        Assertions.assertEquals(5, machine.getRegisters().get(EAX));
+        Assertions.assertEquals(3, machine.getRegisters().get(EAX));
     }
 
     @Test
     void executeValidTwo() {
         registers.set(EAX, 10);
-        registers.set(EBX, -6);
-        Instruction instruction = new DivideInstruction(null, EAX, EBX);
+        Instruction instruction = new MoveInstruction(null, EAX, -4);
         instruction.execute(machine);
-        Assertions.assertEquals(-1, machine.getRegisters().get(EAX));
+        Assertions.assertEquals(-4, machine.getRegisters().get(EAX));
+    }
+
+    @Test
+    void equalsValid() {
+        Instruction i1 = new MoveInstruction("F1", EAX, 1);
+        Instruction i2 = new MoveInstruction("F1", EAX, 1);
+        Assertions.assertEquals(i1, i2);
+    }
+
+    @Test
+    void equalsInvalid() {
+        Instruction i1 = new MoveInstruction("F1", EAX, 1);
+        Instruction i2 = new MoveInstruction(null, EAX, 1);
+        Assertions.assertNotEquals(i1, i2);
     }
 }
