@@ -1,14 +1,12 @@
 package sml;
 
-import sml.instruction.*;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Scanner;
 
-import static sml.Registers.Register;
+import java.lang.reflect.*;
 
 /**
  * This class ....
@@ -66,56 +64,50 @@ public final class Translator {
             return null;
 
         String opcode = scan();
-        switch (opcode) {
-            case AddInstruction.OP_CODE -> {
-                String r = scan();
-                String s = scan();
-                return new AddInstruction(label, Register.valueOf(r), Register.valueOf(s));
+        try {
+            String className = opcode.substring(0,1).toUpperCase() + opcode.substring(1) + "Instruction";
+            Class<?> instructionClass = Class.forName("sml.instruction." + className);
+
+            // Assumes that there will always be just one constructor
+            Constructor<?> constructor = instructionClass.getConstructors()[0];
+            Class<?>[] paramTypes = constructor.getParameterTypes();
+
+            Object[] params = new Object[paramTypes.length];
+            params[0] = label;
+
+            String[] stringParams = line.trim().split("\\s+");
+
+            for (int i = 0; i < stringParams.length; i++) {
+                params[i + 1] = parseParameter(stringParams[i], paramTypes[i+1]);
             }
-            case SubtractInstruction.OP_CODE -> {
-                String r = scan();
-                String s = scan();
-                return new SubtractInstruction(label, Register.valueOf(r), Register.valueOf(s));
-            }
-            case MultiplyInstruction.OP_CODE -> {
-                String r = scan();
-                String s = scan();
-                return new MultiplyInstruction(label, Register.valueOf(r), Register.valueOf(s));
-            }
-            case DivideInstruction.OP_CODE -> {
-                String r = scan();
-                String s = scan();
-                return new DivideInstruction(label, Register.valueOf(r), Register.valueOf(s));
-            }
-            case OutputInstruction.OP_CODE -> {
-                String s = scan();
-                return new OutputInstruction(label, Register.valueOf(s));
-            }
-            case MoveInstruction.OP_CODE -> {
-                String r = scan();
-                int x = Integer.parseInt(scan());
-                return new MoveInstruction(label, Register.valueOf(r), x);
-            }
-            case JumpInstruction.OP_CODE -> {
-                String s = scan();
-                String L = scan();
-                return new JumpInstruction(label, Register.valueOf(s), L);
-            }
+
+            return (Instruction) constructor.newInstance(params);
+        } catch (ClassNotFoundException e){
+            System.out.println("Unknown instruction: " + opcode);
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
+            e.printStackTrace();
+        }
 
             // TODO: add code for all other types of instructions ✅
 
-            // TODO: Then, replace the switch by using the Reflection API
+            // TODO: Then, replace the switch by using the Reflection API ✅
 
             // TODO: Next, use dependency injection to allow this machine class
             //       to work with different sets of opcodes (different CPUs)
-
-            default -> {
-                System.out.println("Unknown instruction: " + opcode);
-            }
-        }
         return null;
     }
 
+    private Object parseParameter(String param, Class<?> type) {
+        if(type == sml.RegisterName.class){
+            return Registers.Register.valueOf(param);
+        } else if (type == String.class) {
+            return param;
+        } else if (type == int.class) {
+            return Integer.parseInt(param);
+        }
+        System.out.println("Unknown Parameter Type: " + type);
+        return null;
+    }
 
     private String getLabel() {
         String word = scan();
