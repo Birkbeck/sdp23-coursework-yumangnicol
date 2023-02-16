@@ -68,20 +68,20 @@ public final class Translator {
             String className = opcode.substring(0,1).toUpperCase() + opcode.substring(1) + "Instruction";
             Class<?> instructionClass = Class.forName("sml.instruction." + className);
 
-            // Assumes that there will always be just one constructor
-            Constructor<?> constructor = instructionClass.getConstructors()[0];
-            Class<?>[] paramTypes = constructor.getParameterTypes();
-
-            Object[] params = new Object[paramTypes.length];
-            params[0] = label;
-
             String[] stringParams = line.trim().split("\\s+");
 
-            for (int i = 0; i < stringParams.length; i++) {
-                params[i + 1] = parseParameter(stringParams[i], paramTypes[i+1]);
-            }
+            for(Constructor<?> constructor : instructionClass.getConstructors()){
+                if(constructor.getParameterCount() == stringParams.length + 1){
+                    Class<?>[] paramTypes = constructor.getParameterTypes();
+                    Object[] params = new Object[paramTypes.length];
+                    params[0] = label;
+                    for (int i = 0; i < stringParams.length; i++) {
+                        params[i + 1] = parseParameter(stringParams[i], paramTypes[i+1]);
+                    }
 
-            return (Instruction) constructor.newInstance(params);
+                    return (Instruction) constructor.newInstance(params);
+                }
+            }
         } catch (ClassNotFoundException e){
             System.out.println("Unknown instruction: " + opcode);
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
