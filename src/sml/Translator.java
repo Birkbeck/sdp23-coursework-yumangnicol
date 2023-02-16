@@ -6,8 +6,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Scanner;
 
-import java.lang.reflect.*;
-
 /**
  * This class ....
  * <p>
@@ -64,50 +62,17 @@ public final class Translator {
             return null;
 
         String opcode = scan();
-        try {
-            String className = opcode.substring(0,1).toUpperCase() + opcode.substring(1) + "Instruction";
-            Class<?> instructionClass = Class.forName("sml.instruction." + className);
+        String[] operands = line.trim().split("\\s+");
 
-            String[] stringParams = line.trim().split("\\s+");
-
-            for(Constructor<?> constructor : instructionClass.getConstructors()){
-                if(constructor.getParameterCount() == stringParams.length + 1){
-                    Class<?>[] paramTypes = constructor.getParameterTypes();
-                    Object[] params = new Object[paramTypes.length];
-                    params[0] = label;
-                    for (int i = 0; i < stringParams.length; i++) {
-                        params[i + 1] = parseParameter(stringParams[i], paramTypes[i+1]);
-                    }
-
-                    return (Instruction) constructor.newInstance(params);
-                }
-            }
-        } catch (ClassNotFoundException e){
-            System.out.println("Unknown instruction: " + opcode);
-        } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
-            e.printStackTrace();
-        }
-
+        return InstructionFactory.getInstance().newInstanceOf(opcode, label, operands);
             // TODO: add code for all other types of instructions ✅
 
             // TODO: Then, replace the switch by using the Reflection API ✅
 
             // TODO: Next, use dependency injection to allow this machine class
             //       to work with different sets of opcodes (different CPUs)
-        return null;
     }
 
-    private Object parseParameter(String param, Class<?> type) {
-        if(type == sml.RegisterName.class){
-            return Registers.Register.valueOf(param);
-        } else if (type == String.class) {
-            return param;
-        } else if (type == int.class) {
-            return Integer.parseInt(param);
-        }
-        System.out.println("Unknown Parameter Type: " + type);
-        return null;
-    }
 
     private String getLabel() {
         String word = scan();
