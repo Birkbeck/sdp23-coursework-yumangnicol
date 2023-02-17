@@ -1,7 +1,5 @@
 package sml;
 
-// TODO: write a JavaDoc for the class
-
 /**
  * Represents an abstract instruction.
  *
@@ -64,7 +62,6 @@ public abstract class Instruction {
 	public abstract int hashCode();
 
 	// TODO: What does abstract in the declaration below mean? ✅
-	//       (Write a short explanation.)
 	// Abstract methods do not have a body or implementation. Only the method signature is provided
 	// Any class that contains an abstract method should also be an abstract class
 	// Any class that extends an abstract class requires an implementation the abstract methods of the extended class
