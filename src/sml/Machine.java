@@ -70,12 +70,15 @@ public final class Machine {
 				.collect(Collectors.joining("\n"));
 	}
 
-	// TODO: use pattern matching for instanceof ✅
-	// https://docs.oracle.com/en/java/javase/14/language/pattern-matching-instanceof-operator.html
+	/**
+	 * Compares the equality of this machine and another object.
+	 *
+	 * @param o concrete object to compare with
+	 * @return true if machine is equal to specified Object, false otherwise
+	 */
 	@Override
 	public boolean equals(Object o) {
 		if (o instanceof Machine m) {
-			// TODO: ✅
 			return Objects.equals(this.labels, m.labels)
 					&& Objects.equals(this.program, m.program)
 					&& Objects.equals(this.registers, m.registers)
