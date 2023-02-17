@@ -3,23 +3,27 @@ package sml;
 import java.util.*;
 import java.util.stream.Collectors;
 
-// TODO: write a JavaDoc for the class
-
 /**
+ * Represents the set of Registers available to the machine.
+ * An instance contains 8 register addresses.
  *
- * @author ...
+ * @author Nicol Luis Yumang
  */
 public final class Registers {
     private final Map<Register, Integer> registers = new HashMap<>();
 
     public enum Register implements RegisterName {
-        EAX, EBX, ECX, EDX, ESP, EBP, ESI, EDI;
+        EAX, EBX, ECX, EDX, ESP, EBP, ESI, EDI
     }
 
     public Registers() {
         clear(); // the class is final
     }
 
+
+    /**
+     * Sets the values to all registers to 0
+     */
     public void clear() {
         for (Register register : Register.values())
             registers.put(register, 0);
@@ -45,8 +49,12 @@ public final class Registers {
         return registers.get((Register)register);
     }
 
-    // TODO: use pattern matching for instanceof ✅
-    // https://docs.oracle.com/en/java/javase/14/language/pattern-matching-instanceof-operator.html
+    /**
+     * Compares the equality of this set of registers and another object.
+     *
+     * @param o concrete object to compare with
+     * @return true if set of registers is equal to specified Object, false otherwise
+     */
     @Override
     public boolean equals(Object o) {
         if (o instanceof Registers r) {
@@ -55,11 +63,22 @@ public final class Registers {
         return false;
     }
 
+    /**
+     * Hashcode value of the set of Registers.
+     *
+     * @return hashcode value of this machine
+     */
     @Override
     public int hashCode() {
         return registers.hashCode();
     }
 
+
+    /**
+     * String representation of the registers available to the machine.
+     *
+     * @return pretty formatted version of the registers.
+     */
     @Override
     public String toString() {
         return registers.entrySet().stream()
