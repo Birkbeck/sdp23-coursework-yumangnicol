@@ -10,5 +10,7 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="junit.jupiter" level="project" />
+    <orderEntry type="library" name="google.inject.guice" level="project" />
+    <orderEntry type="library" name="google.inject.extensions.guice.assistedinject" level="project" />
   </component>
 </module>
