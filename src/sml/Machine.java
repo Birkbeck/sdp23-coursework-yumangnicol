@@ -25,6 +25,9 @@ public final class Machine {
 	// of the next instruction to be executed.
 	private int programCounter = 0;
 
+	/**
+	 * Constructor:a machine with a set of registers
+	 */
 	public Machine(Registers registers) {
 		this.registers = registers;
 	}
@@ -45,14 +48,26 @@ public final class Machine {
 		}
 	}
 
+	/**
+	 * Returns the registered instruction labels
+	 * @return labels
+	 */
 	public Labels getLabels() {
 		return this.labels;
 	}
 
+	/**
+	 * Returns the list of instructions of a program
+	 * @return list of instructions
+	 */
 	public List<Instruction> getProgram() {
 		return this.program;
 	}
 
+	/**
+	 * Returns the registers available to the machine
+	 * @return registers
+	 */
 	public Registers getRegisters() {
 		return this.registers;
 	}
@@ -60,7 +75,6 @@ public final class Machine {
 
 	/**
 	 * String representation of the program under execution.
-	 *
 	 * @return pretty formatted version of the code.
 	 */
 	@Override
@@ -70,12 +84,6 @@ public final class Machine {
 				.collect(Collectors.joining("\n"));
 	}
 
-	/**
-	 * Compares the equality of this machine and another object.
-	 *
-	 * @param o concrete object to compare with
-	 * @return true if machine is equal to specified Object, false otherwise
-	 */
 	@Override
 	public boolean equals(Object o) {
 		if (o instanceof Machine m) {
