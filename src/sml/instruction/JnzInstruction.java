@@ -6,6 +6,12 @@ import sml.RegisterName;
 
 import java.util.Objects;
 
+/**
+ * Represents a Conditional Branch Machine Instruction
+ * Machine program execution jumps to given branch label
+ * if the given source register is equal to zero*
+ * @author Nicol Luis Yumang
+ */
 public class JnzInstruction extends Instruction {
     private final RegisterName source;
     private final String branch;

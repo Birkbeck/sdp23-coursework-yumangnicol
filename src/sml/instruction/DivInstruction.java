@@ -6,6 +6,13 @@ import sml.RegisterName;
 
 import java.util.Objects;
 
+/**
+ * Represents a Divide Machine Instruction
+ * Divides the contents of 2 registers (result, source)
+ * Stores the result in the result register
+ * @author Nicol Luis Yumang
+ */
+
 public class DivInstruction extends Instruction {
     private final RegisterName result;
     private final RegisterName source;

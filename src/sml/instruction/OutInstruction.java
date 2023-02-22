@@ -3,8 +3,13 @@ package sml.instruction;
 import sml.Instruction;
 import sml.Machine;
 import sml.RegisterName;
-
 import java.util.Objects;
+
+/**
+ * Represents an Output Machine Instruction
+ * Prints the value inside the source register
+ * @author Nicol Luis Yumang
+ */
 
 public class OutInstruction extends Instruction {
 

@@ -3,8 +3,13 @@ package sml.instruction;
 import sml.Instruction;
 import sml.Machine;
 import sml.RegisterName;
-
 import java.util.Objects;
+
+/**
+ * Represents a Move Machine Instruction
+ * Stores a value to the result register
+ * @author Nicol Luis Yumang
+ */
 
 public class MovInstruction extends Instruction {
     private final RegisterName result;

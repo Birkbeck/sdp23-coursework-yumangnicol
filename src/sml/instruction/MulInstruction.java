@@ -3,8 +3,14 @@ package sml.instruction;
 import sml.Instruction;
 import sml.Machine;
 import sml.RegisterName;
-
 import java.util.Objects;
+
+/**
+ * Represents a Multiply Machine Instruction
+ * Multiplies the contents of 2 registers (result, source)
+ * Stores the result in the result register
+ * @author Nicol Luis Yumang
+ */
 
 public class MulInstruction extends Instruction {
     private final RegisterName result;

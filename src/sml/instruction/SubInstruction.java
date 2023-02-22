@@ -3,9 +3,14 @@ package sml.instruction;
 import sml.Instruction;
 import sml.Machine;
 import sml.RegisterName;
-
 import java.util.Objects;
 
+/**
+ * Represents a Subtract Machine Instruction
+ * Subtracts the contents of 2 registers (result, source)
+ * Stores the result in the result register
+ * @author Nicol Luis Yumang
+ */
 public class SubInstruction extends Instruction {
     private final RegisterName result;
     private final RegisterName source;
