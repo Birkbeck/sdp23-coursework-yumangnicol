@@ -5,11 +5,11 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-// TODO: write a JavaDoc for the class
-
 /**
+ * Represents the registered for the instruction of a program
+ * The same label cannot be used by more than 1 instruction at a time.
  *
- * @author ...
+ * @author Nicol Luis Yumang
  */
 public final class Labels {
 	private final Map<String, Integer> labels = new HashMap<>();
