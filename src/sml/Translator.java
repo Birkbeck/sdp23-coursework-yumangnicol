@@ -2,7 +2,7 @@ package sml;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import sml.utils.InstructionInputRouterModule;
+import sml.modules.InstructionInputRouterModule;
 
 import java.io.File;
 import java.io.IOException;
