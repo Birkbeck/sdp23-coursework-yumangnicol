@@ -30,6 +30,14 @@ public final class Labels {
 		}
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Labels labels1 = (Labels) o;
+		return labels.equals(labels1.labels);
+	}
+
 	/**
 	 * Returns the address associated with the label.
 	 *
@@ -54,6 +62,18 @@ public final class Labels {
 		}
 	}
 
+	@Override
+	public int hashCode() {
+		return Objects.hash(labels);
+	}
+
+	/**
+	 * Removes the labels
+	 */
+	public void reset() {
+		labels.clear();
+	}
+
 	/**
 	 * representation of this instance,
 	 * in the form "[label -> address, label -> address, ..., label -> address]"
@@ -68,27 +88,5 @@ public final class Labels {
 				.sorted(Map.Entry.comparingByKey())
 				.map(e -> e.getKey() + " -> " + e.getValue())
 				.collect(Collectors.joining(", ", "[", "]"));
-	}
-
-	// TODO: Implement equals and hashCode (needed in class Machine). ✅
-
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-		Labels labels1 = (Labels) o;
-		return labels.equals(labels1.labels);
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(labels);
-	}
-
-	/**
-	 * Removes the labels
-	 */
-	public void reset() {
-		labels.clear();
 	}
 }
