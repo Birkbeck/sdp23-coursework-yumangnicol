@@ -11,11 +11,11 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- * This class ....
+ * This class translates a program's contents into machine instruction.
  * <p>
  * The translator of a <b>S</b><b>M</b>al<b>L</b> program.
  *
- * @author ...
+ * @author Nicol Luis Yumang
  */
 public final class Translator {
 
