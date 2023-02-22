@@ -16,6 +16,9 @@ public final class Registers {
         EAX, EBX, ECX, EDX, ESP, EBP, ESI, EDI
     }
 
+    /**
+     * Constructor: Registers that are set to 0
+     */
     public Registers() {
         clear(); // the class is final
     }
