@@ -28,10 +28,46 @@ public final class Translator {
         this.fileName =  fileName;
     }
 
-    // translate the small program in the file into lab (the labels) and
-    // prog (the program)
-    // return "no errors were detected"
+    /**
+     * Translates the current line into an instruction with the given label
+     *
+     * @param label the instruction label
+     * @return the new instruction
+     * <p>
+     * The input line should consist of a single SML instruction,
+     * with its label already removed.
+     */
+    private Instruction getInstruction(String label) {
+        if (line.isEmpty())
+            return null;
 
+        String opcode = scan();
+        String[] operands = line.trim().split("\\s+");
+
+        // Instance of InstructionInputRouter injected by Guice
+        // is used to route an instruction request to appropriate Factory
+        Injector injector = Guice.createInjector(new InstructionInputRouterModule());
+        return injector.getInstance(InstructionInputRouter.class).routeInstructionRequest(opcode, label, operands);
+    }
+
+    /**
+     * Translates the first word of a line into a label
+     * @return label
+     */
+    private String getLabel() {
+        String word = scan();
+        if (word.endsWith(":"))
+            return word.substring(0, word.length() - 1);
+
+        // undo scanning the word
+        line = word + " " + line;
+        return null;
+    }
+
+    /** Translates the small program in the file into
+     * labels (the labels) and instruction list in the program
+     * return "no errors were detected"
+     */
     public void readAndTranslate(Labels labels, List<Instruction> program) throws IOException {
         try (var sc = new Scanner(new File(fileName), StandardCharsets.UTF_8)) {
             labels.reset();
@@ -50,37 +86,6 @@ public final class Translator {
                 }
             }
         }
-    }
-
-    /**
-     * Translates the current line into an instruction with the given label
-     *
-     * @param label the instruction label
-     * @return the new instruction
-     * <p>
-     * The input line should consist of a single SML instruction,
-     * with its label already removed.
-     */
-    private Instruction getInstruction(String label) {
-        if (line.isEmpty())
-            return null;
-
-        String opcode = scan();
-        String[] operands = line.trim().split("\\s+");
-
-        Injector injector = Guice.createInjector(new InstructionInputRouterModule());
-        return injector.getInstance(InstructionInputRouter.class).routeInstructionRequest(opcode, label, operands);
-    }
-
-
-    private String getLabel() {
-        String word = scan();
-        if (word.endsWith(":"))
-            return word.substring(0, word.length() - 1);
-
-        // undo scanning the word
-        line = word + " " + line;
-        return null;
     }
 
     /**
