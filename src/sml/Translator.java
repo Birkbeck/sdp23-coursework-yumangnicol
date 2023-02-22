@@ -1,5 +1,9 @@
 package sml;
 
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import sml.utils.InstructionInputRouterModule;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -64,13 +68,8 @@ public final class Translator {
         String opcode = scan();
         String[] operands = line.trim().split("\\s+");
 
-        return InstructionFactory.getInstance().newInstanceOf(opcode, label, operands);
-            // TODO: add code for all other types of instructions ✅
-
-            // TODO: Then, replace the switch by using the Reflection API ✅
-
-            // TODO: Next, use dependency injection to allow this machine class
-            //       to work with different sets of opcodes (different CPUs)
+        Injector injector = Guice.createInjector(new InstructionInputRouterModule());
+        return injector.getInstance(InstructionInputRouter.class).routeInstructionRequest(opcode, label, operands);
     }
 
 
@@ -84,7 +83,7 @@ public final class Translator {
         return null;
     }
 
-    /*
+    /**
      * Return the first word of line and remove it from line.
      * If there is no word, return "".
      */
