@@ -52,12 +52,6 @@ public final class Registers {
         return registers.get((Register)register);
     }
 
-    /**
-     * Compares the equality of this set of registers and another object.
-     *
-     * @param o concrete object to compare with
-     * @return true if set of registers is equal to specified Object, false otherwise
-     */
     @Override
     public boolean equals(Object o) {
         if (o instanceof Registers r) {
@@ -66,11 +60,6 @@ public final class Registers {
         return false;
     }
 
-    /**
-     * Hashcode value of the set of Registers.
-     *
-     * @return hashcode value of this machine
-     */
     @Override
     public int hashCode() {
         return registers.hashCode();
