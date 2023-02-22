@@ -32,6 +32,17 @@ public final class Machine {
 		this.registers = registers;
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (o instanceof Machine m) {
+			return Objects.equals(this.labels, m.labels)
+					&& Objects.equals(this.program, m.program)
+					&& Objects.equals(this.registers, m.registers)
+					&& this.programCounter == m.programCounter;
+		}
+		return false;
+	}
+
 	/**
 	 * Execute the program in program, beginning at instruction 0.
 	 * Precondition: the program and its labels have been stored properly.
@@ -72,6 +83,10 @@ public final class Machine {
 		return this.registers;
 	}
 
+	@Override
+	public int hashCode() {
+		return Objects.hash(labels, program, registers, programCounter);
+	}
 
 	/**
 	 * String representation of the program under execution.
@@ -82,21 +97,5 @@ public final class Machine {
 		return program.stream()
 				.map(Instruction::toString)
 				.collect(Collectors.joining("\n"));
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		if (o instanceof Machine m) {
-			return Objects.equals(this.labels, m.labels)
-					&& Objects.equals(this.program, m.program)
-					&& Objects.equals(this.registers, m.registers)
-					&& this.programCounter == m.programCounter;
-		}
-		return false;
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(labels, program, registers, programCounter);
 	}
 }
