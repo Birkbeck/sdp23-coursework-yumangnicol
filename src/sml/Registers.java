@@ -23,7 +23,6 @@ public final class Registers {
         clear(); // the class is final
     }
 
-
     /**
      * Sets the values to all registers to 0
      */
@@ -32,14 +31,12 @@ public final class Registers {
             registers.put(register, 0);
     }
 
-    /**
-     * Sets the given register to the value.
-     *
-     * @param register register name
-     * @param value new value
-     */
-    public void set(RegisterName register, int value) {
-        registers.put((Register)register, value);
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof Registers r) {
+            return registers.equals(r.registers);
+        }
+        return false;
     }
 
     /**
@@ -53,18 +50,19 @@ public final class Registers {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (o instanceof Registers r) {
-            return registers.equals(r.registers);
-        }
-        return false;
-    }
-
-    @Override
     public int hashCode() {
         return registers.hashCode();
     }
 
+    /**
+     * Sets the given register to the value.
+     *
+     * @param register register name
+     * @param value new value
+     */
+    public void set(RegisterName register, int value) {
+        registers.put((Register)register, value);
+    }
 
     /**
      * String representation of the registers available to the machine.
