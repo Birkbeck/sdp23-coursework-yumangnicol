@@ -17,8 +17,8 @@ public class TranslatorTest {
     Labels labels;
     List<Instruction> program;
 
-    private final PrintStream standardOut = System.out;
-    private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+    PrintStream standardOut = System.out;
+    ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
 
     @BeforeEach
     void setUp() {
