@@ -22,7 +22,6 @@ public final class Labels {
 	 */
 	public void addLabel(String label, int address) {
 		Objects.requireNonNull(label);
-		// TODO: Add a check that there are no label duplicates. ✅
 		if(labels.containsKey(label)){
 			System.out.println("Label: " + label + " already exists");
 		} else {
@@ -45,11 +44,7 @@ public final class Labels {
 	 * @return the address the label refers to
 	 */
 	public int getAddress(String label) {
-		// TODO: Where can NullPointerException be thrown here? ✅
-		//       (Write an explanation.)
-		//       Add code to deal with non-existent labels.
-
-		// the provided label might not exist in labels Map.
+		// The provided label might not exist in labels Map.
 		// in this case, a NullPointerException is thrown by the get() method.
 		// when a NullPointerException is thrown, the catch block handles this by returning
 		// -1 or the NORMAL_PROGRAM_COUNTER_UPDATE. The program should continue without breaking
@@ -82,8 +77,6 @@ public final class Labels {
 	 */
 	@Override
 	public String toString() {
-		// TODO: Implement the method using the Stream API (see also class Registers). ✅
-
 		return labels.entrySet().stream()
 				.sorted(Map.Entry.comparingByKey())
 				.map(e -> e.getKey() + " -> " + e.getValue())
